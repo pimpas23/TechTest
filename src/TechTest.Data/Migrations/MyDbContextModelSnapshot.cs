@@ -24,9 +24,9 @@ namespace TechTest.Data.Migrations
 
             modelBuilder.Entity("TechTest.Business.Models.CallDetailRecord", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<DateTime>("CallDateEndTime")
                         .HasColumnType("datetime2");

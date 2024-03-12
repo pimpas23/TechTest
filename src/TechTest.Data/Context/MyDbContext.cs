@@ -16,6 +16,7 @@ namespace TechTest.Data.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<CallFilters>();
         }
 
 

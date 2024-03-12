@@ -15,7 +15,7 @@ namespace TechTest.Data.Migrations
                 name: "CallDetailRecords",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
                     CallerNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     RecipientNumber = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
                     CallDateEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
