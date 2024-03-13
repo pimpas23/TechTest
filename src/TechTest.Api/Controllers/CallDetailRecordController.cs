@@ -11,10 +11,12 @@ namespace TechTest.Api.Controllers
     public class CallDetailRecordController : ControllerBase
     {
         private readonly ICallDetailRecordService service;
+        private readonly IConfiguration configuration;
 
-        public CallDetailRecordController(ICallDetailRecordService service)
+        public CallDetailRecordController(ICallDetailRecordService service, IConfiguration configuration)
         {
             this.service = service;
+            this.configuration = configuration;
         }
 
         [HttpPost("GetTotalDurationOfCallsInTimeRange")]
@@ -25,33 +27,26 @@ namespace TechTest.Api.Controllers
         }
 
         [HttpPost("uploadCsv")]
-        public async Task<IActionResult> Upload(IFormFile file)
+        public async Task<ActionResult> Upload(IFormFile file)
         {
-            if (!file.FileName.EndsWith(".csv"))
-            {
-                return BadRequest("Incorrect format uploaded");
-            }
-
             if (file == null || file.Length == 0)
             {
                 return BadRequest("No file uploaded");
             }
 
-            try
+            if (!file.FileName.EndsWith(configuration.GetSection("SupportedExtension").Value))
             {
-                string fileContent;
-                using (var streamReader = new StreamReader(file.OpenReadStream()))
-                {
-                    fileContent = await streamReader.ReadToEndAsync();
-                    await this.service.AddCallRecords(fileContent.Split("\n").ToList());
-                }
+                return BadRequest("Incorrect format uploaded");
+            }
 
-                return Ok("File uploaded successfully");
-            }
-            catch (System.Exception ex)
+            string fileContent;
+            using (var streamReader = new StreamReader(file.OpenReadStream()))
             {
-                return StatusCode(500, $"Internal server error: {ex}");
+                fileContent = await streamReader.ReadToEndAsync();
+                await this.service.AddCallRecords(fileContent.Split(configuration.GetSection("LineSeparator").Value).ToList());
             }
+
+            return Ok("File uploaded successfully");
         }
     }
 }

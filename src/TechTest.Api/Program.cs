@@ -1,6 +1,7 @@
 using TechTest.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using TechTest.Api.Configuration;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 });
 
 builder.Services.ResolveDependencies();
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
