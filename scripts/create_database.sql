@@ -1,23 +1,11 @@
 USE master;
 GO
 
-IF DB_ID('CallRecordDb') IS NOT NULL
-BEGIN
-    ALTER DATABASE CallRecordDb SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-    DROP DATABASE CallRecordDb;
-END
-GO
-
-
-
-CREATE DATABASE CallRecordDb;
+IF OBJECT_ID('CallRecordDb', 'U') IS NULL
+    CREATE DATABASE CallRecordDb;
 GO
 
 USE CallRecordDb;
-GO
-
-IF OBJECT_ID('dbo.CallDetailRecords', 'U') IS NOT NULL
-    DROP TABLE dbo.CallDetailRecords;
 GO
 
 CREATE TABLE [dbo].[CallDetailRecords] (

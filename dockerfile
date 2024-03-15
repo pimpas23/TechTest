@@ -3,6 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0 AS restore
 
 # Set the working directory in the container
 WORKDIR /app
+EXPOSE 8080
 
 # Copy the project files to the container
 COPY ["TechTest.sln", "TechTest.sln"]
@@ -27,10 +28,7 @@ RUN mkdir /app/publish/logs
 # Set the working directory in the container
 WORKDIR /app/publish
 
-# Expose port 5000 to the outside world
-EXPOSE 5000
-
 # Define the entry point for the container
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:8080
 ENV ASPNETCORE_ENVIRONMENT="Development"
 ENTRYPOINT ["dotnet", "TechTest.Api.dll"]

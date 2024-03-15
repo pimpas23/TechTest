@@ -4,11 +4,11 @@ services:
   app:
     build: .
     ports:
-      - 5000:5000
+      - 8080:8080
     depends_on:
       - sql_server
     environment:
-      ConnectionStrings__DefaultConnection: "Server=sql_server;Database=CallRecordDb;User=sa;Password=YourPassword;"
+      ConnectionStrings__DefaultConnection: "Server=sql_server;Database=CallRecordDb;User=sa;Password=TechTest112358.#;"
       
   sql_server:
     image: mcr.microsoft.com/mssql/server:2019-latest

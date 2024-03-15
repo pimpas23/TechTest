@@ -40,8 +40,18 @@ namespace TechTest.Data.Repository
             {
                records = records.Where(cr => cr.TypeOfCall==filters.CallType).ToList();
             }
+            if (filters.CallerID != default)
+            {
+               records.Where(c => c.CallerNumber == filters.CallerID).ToList();
+            }
+
+
+            var final = records
+                .Take(filters.NumberOfMostExpensiveCallsToRetrieve ?? 5)
+                .OrderByDescending(x=> x.Cost)
+                .ToList();
             
-            return records.Where(c => c.CallerNumber==filters.CallerID).ToList();
+            return final;
         }
 
         public async Task<CountCallsAndDuration> GetTotalDurationAndNumberOfCallsInTimeRange(CallFilters range)
