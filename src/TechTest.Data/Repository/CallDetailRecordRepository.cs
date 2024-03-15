@@ -28,7 +28,7 @@ namespace TechTest.Data.Repository
             return await SaveChanges();
         }
 
-        public async Task<IEnumerable<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters)
+        public async Task<List<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters)
         {
             var records = await DbSet.ToListAsync();
             if(filters.EndDate!=default && filters.StartDate != default)
@@ -41,7 +41,7 @@ namespace TechTest.Data.Repository
                records = records.Where(cr => cr.TypeOfCall==filters.CallType).ToList();
             }
             
-            return records.Where(c => c.CallerNumber==filters.CallerID );
+            return records.Where(c => c.CallerNumber==filters.CallerID).ToList();
         }
 
         public async Task<CountCallsAndDuration> GetTotalDurationAndNumberOfCallsInTimeRange(CallFilters range)
@@ -59,11 +59,18 @@ namespace TechTest.Data.Repository
             };
         }
 
-        public async Task<IEnumerable<CallDetailRecord>> RetriveNumberMostExpensiveCalls(CallFilters filters)
+        public async Task<List<CallDetailRecord>> RetriveNumberMostExpensiveCalls(CallFilters filters)
         {
             var records = await DbSet.ToListAsync();
             records = records.OrderByDescending(cr => cr.Cost).ToList().Take(filters.NumberOfMostExpensiveCallsToRetrieve ?? 1).ToList();
             return records;
+        }
+
+        public async Task<CallDetailRecord> RetriveCallById(string id)
+        {
+            var records = await DbSet.ToListAsync();
+            var record = records.FirstOrDefault(cr => cr.Id == id);
+            return record;
         }
 
         public async Task<int> SaveChanges()

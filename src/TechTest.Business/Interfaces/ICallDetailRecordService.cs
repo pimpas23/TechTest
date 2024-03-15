@@ -14,8 +14,10 @@ namespace TechTest.Business.Interfaces
 
         Task<CountCallsAndDuration> GetTotalDurationOfCallsInTimeRange(CallFilters range);
 
-        Task GetAllCallRecordsForCallerId(CallFilters filters);
+        Task<List<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters);
 
         Task RetriveNumberMostExpensiveCalls(CallFilters filters);
+
+        Task<CallDetailRecord> RetriveCallById(string id);
     }
 }

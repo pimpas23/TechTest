@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechTest.Business.Interfaces;
+﻿using TechTest.Business.Interfaces;
 using TechTest.Business.Models;
 using TechTest.Business.Models.Enums;
 using TechTest.Business.Models.ResponseModels;
@@ -16,7 +11,7 @@ public class CallDetailRecordService : ICallDetailRecordService
 
     public CallDetailRecordService(ICallDetailRecordRepository callRepository)
     {
-            this.callRepository = callRepository;
+        this.callRepository = callRepository;
     }
     public async Task AddCallRecords(List<string> records)
     {
@@ -24,14 +19,19 @@ public class CallDetailRecordService : ICallDetailRecordService
         await callRepository.AddCallRecords(data);
     }
 
-    public Task GetAllCallRecordsForCallerId(CallFilters filters)
+    public Task<List<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters)
     {
-        throw new NotImplementedException();
+        return this.callRepository.GetAllCallRecordsForCallerId(filters);
     }
 
     public Task<CountCallsAndDuration> GetTotalDurationOfCallsInTimeRange(CallFilters range)
     {
         return this.callRepository.GetTotalDurationAndNumberOfCallsInTimeRange(range);
+    }
+
+    public Task<CallDetailRecord> RetriveCallById(string id)
+    {
+        return this.callRepository.RetriveCallById(id);
     }
 
     public Task RetriveNumberMostExpensiveCalls(CallFilters filters)
@@ -42,8 +42,8 @@ public class CallDetailRecordService : ICallDetailRecordService
     private List<CallDetailRecord> ParseData(List<string> records)
     {
         var list = new List<CallDetailRecord>();
-
-        if (!records.FirstOrDefault().Contains(":"))
+        var doubleDot = ':';
+        if (!records.FirstOrDefault().Contains(doubleDot))
         {
             records.RemoveAt(0);
         }
@@ -56,9 +56,9 @@ public class CallDetailRecordService : ICallDetailRecordService
                 var year = Convert.ToInt32(parseRecord[2].Split('/')[2]);
                 var month = Convert.ToInt32(parseRecord[2].Split('/')[1]);
                 var day = Convert.ToInt32(parseRecord[2].Split('/')[0]);
-                var hour = Convert.ToInt32(parseRecord[3].Split(':')[0]);
-                var minute = Convert.ToInt32(parseRecord[3].Split(':')[1]);
-                var second = Convert.ToInt32(parseRecord[3].Split(':')[2]);
+                var hour = Convert.ToInt32(parseRecord[3].Split(doubleDot)[0]);
+                var minute = Convert.ToInt32(parseRecord[3].Split(doubleDot)[1]);
+                var second = Convert.ToInt32(parseRecord[3].Split(doubleDot)[2]);
                 var emptyGuid = Guid.Empty;
                 list.Add(new CallDetailRecord
                 {
@@ -75,10 +75,9 @@ public class CallDetailRecordService : ICallDetailRecordService
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
-                Console.WriteLine(record.ToString());
-                // TODO - send an alert to controller that there was a error in this line
+                Console.WriteLine(record.ToString() + $"line: {list.Count + 1}");
             }
-           
+
         }
         return list;
     }

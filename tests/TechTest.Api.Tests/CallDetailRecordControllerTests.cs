@@ -71,5 +71,5 @@ namespace TechTest.Api.Tests
             Assert.Equal("File uploaded successfully", badRequestResult.Value);
             
         }
-    }
+    }    
 }

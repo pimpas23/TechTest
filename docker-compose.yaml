@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  app:
+    build: .
+    ports:
+      - 5000:5000
+    depends_on:
+      - sql_server
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql_server;Database=CallRecordDb;User=sa;Password=YourPassword;"
+      
+  sql_server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "TechTest112358.#"
+    ports:
+      - 1433:1433
+    volumes:
+      - ./data:/var/opt/mssql/data   # Mount a volume to persist SQL Server data
+
+networks:
+  default:
+    external:
+      name: techtest-network
