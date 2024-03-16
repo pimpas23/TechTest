@@ -1,0 +1,21 @@
+pipeline {
+    agent none
+	
+	stages {
+		stage('Build') {
+		
+			echo "teste from jenkins"
+			sh 'docker --version'
+			
+			sh "make build"
+		}
+		
+		stage('Test') {
+                stage('Unit Test with SonarQube Analysis') {
+                    steps {
+                        sh "make sonarscanner"
+                    }
+                }
+            }
+        }
+	}

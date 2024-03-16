@@ -1,4 +1,4 @@
-.PHONY: build clean infra
+.PHONY: build clean infra unit-tests
 
 default-network := techtest-network 
 
