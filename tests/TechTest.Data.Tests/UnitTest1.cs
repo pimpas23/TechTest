@@ -5,7 +5,7 @@ namespace TechTest.Data.Tests
         [Fact]
         public void Test1()
         {
-
+            Assert.Fail();
         }
     }
 }

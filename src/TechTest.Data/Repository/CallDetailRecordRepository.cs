@@ -54,13 +54,21 @@ namespace TechTest.Data.Repository
             return final;
         }
 
-        public async Task<CountCallsAndDuration> GetTotalDurationAndNumberOfCallsInTimeRange(CallFilters range)
+        public async Task<CountCallsAndDuration> GetTotalDurationAndNumberOfCallsInTimeRange(InputModel range)
         {
             var records = await DbSet.ToListAsync();
 
-            records=records.Where(cr => (cr.CallDateEndTime > range.StartDate &&
-            cr.CallDateEndTime < range.EndDate) &&
-            cr.TypeOfCall == range.CallType).ToList();
+            if(range.StartDate != default && range.EndDate != default)
+            {
+                records = records
+                    .Where(cr => cr.CallDateEndTime > DateTime.Parse(range.StartDate.ToString()) &&
+                    cr.CallDateEndTime < DateTime.Parse(range.EndDate.ToString()))
+                    .ToList();
+            }
+
+            records = records
+                .Where(cr => cr.TypeOfCall == range.CallType).ToList();
+
 
             return new CountCallsAndDuration 
             { 

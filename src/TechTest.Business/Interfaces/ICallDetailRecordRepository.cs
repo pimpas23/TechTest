@@ -12,7 +12,7 @@ namespace TechTest.Business.Interfaces
     {
         Task<int> AddCallRecords(List<CallDetailRecord> records);
 
-        Task<CountCallsAndDuration> GetTotalDurationAndNumberOfCallsInTimeRange(CallFilters range);
+        Task<CountCallsAndDuration> GetTotalDurationAndNumberOfCallsInTimeRange(InputModel range);
 
         Task<List<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters);
 

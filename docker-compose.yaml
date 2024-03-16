@@ -19,6 +19,15 @@ services:
       - 1433:1433
     volumes:
       - ./data:/var/opt/mssql/data   # Mount a volume to persist SQL Server data
+    
+  unit-tests:
+    container_name: techtest-unit-tests-unit-tests
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: unit-tests
+    volumes:
+      - ./test-reports:/reports   # Mount a volume to store test reports
 
 networks:
   default:

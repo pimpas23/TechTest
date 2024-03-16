@@ -14,5 +14,8 @@ infra: network
 run: infra
 	@docker-compose -f docker-compose.yaml up -d app
 
+unit-tests:
+	@docker-compose -f docker-compose.yaml up --abort-on-container-exit --exit-code-from unit-tests unit-tests
+
 clean:
 	@docker-compose -f docker-compose.yaml down

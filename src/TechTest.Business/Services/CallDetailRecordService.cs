@@ -24,7 +24,7 @@ public class CallDetailRecordService : ICallDetailRecordService
         return this.callRepository.GetAllCallRecordsForCallerId(filters);
     }
 
-    public Task<CountCallsAndDuration> GetTotalDurationOfCallsInTimeRange(CallFilters range)
+    public Task<CountCallsAndDuration> GetTotalDurationOfCallsInTimeRange(InputModel range)
     {
         return this.callRepository.GetTotalDurationAndNumberOfCallsInTimeRange(range);
     }

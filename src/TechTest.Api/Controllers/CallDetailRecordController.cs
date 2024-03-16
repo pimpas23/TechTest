@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TechTest.Business.Interfaces;
 using TechTest.Business.Models;
+using TechTest.Business.Models.Enums;
 using TechTest.Business.Models.ResponseModels;
 
 namespace TechTest.Api.Controllers;
@@ -19,9 +20,21 @@ public class CallDetailRecordController : ControllerBase
         this.configuration = configuration;
     }
 
-    [HttpPost("GetTotalDurationOfCallsInTimeRange")]
-    public async Task<CountCallsAndDuration> GetTotalDurationOfCallsInTimeRange(CallFilters filter)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    [HttpGet("GetTotalDurationOfCallsInTimeRange")]
+    public async Task<CountCallsAndDuration> GetTotalDurationOfCallsInTimeRange([FromQuery] InputModel filter)
     {
+        ////var filter = new CallFilters 
+        ////{ 
+        ////    StartDate = DateTime.Parse(startDate.ToString()),
+        ////    EndDate = DateTime.Parse(endDate.ToString()),
+        ////    CallType = type  
+        ////};
+        // var filter = new CallFilters();
         var value = await this.service.GetTotalDurationOfCallsInTimeRange(filter);
         return value;
     }

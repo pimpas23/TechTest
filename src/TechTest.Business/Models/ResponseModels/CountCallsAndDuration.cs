@@ -8,8 +8,8 @@ namespace TechTest.Business.Models.ResponseModels
 {
     public class CountCallsAndDuration
     {
-        public int CountCalls { get; set; }
+        public long CountCalls { get; set; }
 
-        public int DurationCalls { get; set; }
+        public long DurationCalls { get; set; }
     }
 }
