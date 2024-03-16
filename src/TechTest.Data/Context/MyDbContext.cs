@@ -13,9 +13,18 @@ namespace TechTest.Data.Context
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
         {
         }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=CallRecordDb;User=sa;Password=TechTest112358.#;",
+                    options => options.EnableRetryOnFailure());
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Ignore<CallFilters>();
         }
 
 

@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - sql_server
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sql_server;Database=CallRecordDb;User=sa;Password=TechTest112358.#;"
+      
+  sql_server:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "TechTest112358.#"
+    ports:
+      - 1433:1433
+    volumes:
+      - ./data:/var/opt/mssql/data   # Mount a volume to persist SQL Server data
+    
+  unit-tests:
+    container_name: techtest-unit-tests-unit-tests
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: unit-tests
+    volumes:
+      - ./test-reports:/reports   # Mount a volume to store test reports
+
+networks:
+  default:
+    external:
+      name: techtest-network

@@ -19,7 +19,9 @@ public class CallDetailRecord
 
     public int CallDuration { get; set; }
 
-    public Guid Id { get; set; }
+    [Key]
+    [StringLength(40)]
+    public string Id { get; set; }
 
     public double Cost { get; set; }
 

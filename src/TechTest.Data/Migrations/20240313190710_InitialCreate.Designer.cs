@@ -12,8 +12,8 @@ using TechTest.Data.Context;
 namespace TechTest.Data.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240311190829_Initial")]
-    partial class Initial
+    [Migration("20240313190710_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,9 @@ namespace TechTest.Data.Migrations
 
             modelBuilder.Entity("TechTest.Business.Models.CallDetailRecord", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("Id")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<DateTime>("CallDateEndTime")
                         .HasColumnType("datetime2");
