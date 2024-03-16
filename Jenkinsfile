@@ -4,12 +4,14 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+				echo "building..."
+                sh "dotnet build TechTest.sln -c Release"
             }
         }
         stage('Test') {
             steps {
                 echo 'Testing..'
+				sh "unit-tests"
             }
         }
         stage('Deploy') {

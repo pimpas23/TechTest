@@ -6,6 +6,8 @@ WORKDIR /app
 EXPOSE 8080
 
 # Copy the project files to the container
+COPY ["Makefile","Makefile"]
+Copy ["Jenkinsfile","Jenkinsfile"]
 COPY ["TechTest.sln", "TechTest.sln"]
 COPY ["src/TechTest.Api/TechTest.Api.csproj", "src/TechTest.Api/"]
 COPY ["src/TechTest.Business/TechTest.Business.csproj", "src/TechTest.Business/"]
