@@ -36,7 +36,6 @@ WORKDIR /app
 
 # Unit tests
 From build AS unit-tests
-COPY ["ci-cd", "ci-cd/"]
 ENTRYPOINT dotnet test tests/TechTest.Api.Tests/TechTest.Api.Tests.csproj -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx" && \
 		   dotnet test tests/TechTest.Business.Tests/TechTest.Business.Tests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx" && \
 		   dotnet test tests/TechTest.Data.Tests/TechTest.Data.Tests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx"

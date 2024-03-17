@@ -1,5 +1,5 @@
-// TODO Fix docker
 // TODO missing mappers
 // TODO implement pagination on responses
 // TODO - send an alert to controller that there was a error in this line
 // TODO - pipelines
+// TODO - unit tests and integration tests

@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TechTest.Business.Interfaces;
 using TechTest.Business.Models;
 using TechTest.Business.Models.ResponseModels;
@@ -31,26 +26,26 @@ namespace TechTest.Data.Repository
         public async Task<List<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters)
         {
             var records = await DbSet.ToListAsync();
-            if(filters.EndDate!=default && filters.StartDate != default)
+            if (filters.EndDate != default && filters.StartDate != default)
             {
-                records = records.Where(cr => cr.CallDateEndTime> filters.StartDate && cr.CallDateEndTime < filters.EndDate).ToList();
+                records = records.Where(cr => cr.CallDateEndTime > filters.StartDate && cr.CallDateEndTime < filters.EndDate).ToList();
             }
 
-            if(filters.CallType.HasValue) 
+            if (filters.CallType.HasValue)
             {
-               records = records.Where(cr => cr.TypeOfCall==filters.CallType).ToList();
+                records = records.Where(cr => cr.TypeOfCall == filters.CallType).ToList();
             }
             if (filters.CallerID != default)
             {
-               records.Where(c => c.CallerNumber == filters.CallerID).ToList();
+                records.Where(c => c.CallerNumber == filters.CallerID).ToList();
             }
 
 
             var final = records
                 .Take(filters.NumberOfMostExpensiveCallsToRetrieve ?? 5)
-                .OrderByDescending(x=> x.Cost)
+                .OrderByDescending(x => x.Cost)
                 .ToList();
-            
+
             return final;
         }
 
@@ -58,7 +53,7 @@ namespace TechTest.Data.Repository
         {
             var records = await DbSet.ToListAsync();
 
-            if(range.StartDate != default && range.EndDate != default)
+            if (range.StartDate != default && range.EndDate != default)
             {
                 records = records
                     .Where(cr => cr.CallDateEndTime > DateTime.Parse(range.StartDate.ToString()) &&
@@ -70,10 +65,10 @@ namespace TechTest.Data.Repository
                 .Where(cr => cr.TypeOfCall == range.CallType).ToList();
 
 
-            return new CountCallsAndDuration 
-            { 
+            return new CountCallsAndDuration
+            {
                 CountCalls = records.Count(),
-                DurationCalls = records.Sum(cr => cr.CallDuration) 
+                DurationCalls = records.Sum(cr => cr.CallDuration)
             };
         }
 
