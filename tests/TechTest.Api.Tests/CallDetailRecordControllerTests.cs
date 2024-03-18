@@ -6,6 +6,7 @@ using Moq;
 using System.Text;
 using TechTest.Api.Controllers;
 using TechTest.Business.Interfaces;
+using TechTest.Business.Services;
 
 namespace TechTest.Api.Tests
 {
@@ -13,12 +14,13 @@ namespace TechTest.Api.Tests
     {
         private readonly Mock<ICallDetailRecordService> service=new();
         private readonly Mock<IConfiguration> configuration = new();
+        private readonly Mock<INotifier> notifier = new();
         private CallDetailRecordController controller;
         private Fixture fixture= new();
 
         public CallDetailRecordControllerTests()
         {
-            this.controller = new CallDetailRecordController(service.Object, configuration.Object);
+            this.controller = new CallDetailRecordController(service.Object, configuration.Object, notifier.Object);
             this.configuration.Setup(x => x.GetSection("SupportedExtension").Value).Returns(".csv");
             this.configuration.Setup(x => x.GetSection("LineSeparator").Value).Returns("\n");
         }

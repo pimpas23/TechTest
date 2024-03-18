@@ -8,6 +8,9 @@ using TechTest.Business.Models.Enums;
 
 namespace TechTest.Business.Models;
 
+/// <summary>
+/// CallDetailRecord model for the call detail record
+/// </summary>
 public class CallDetailRecord
 {
     [StringLength(15)]

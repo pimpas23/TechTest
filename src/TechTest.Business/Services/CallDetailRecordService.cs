@@ -2,16 +2,21 @@
 using TechTest.Business.Models;
 using TechTest.Business.Models.Enums;
 using TechTest.Business.Models.ResponseModels;
+using TechTest.Business.Notifier;
 
 namespace TechTest.Business.Services;
 
 public class CallDetailRecordService : ICallDetailRecordService
 {
     private readonly ICallDetailRecordRepository callRepository;
+    private readonly INotifier notifier;
 
-    public CallDetailRecordService(ICallDetailRecordRepository callRepository)
+    public CallDetailRecordService(
+        ICallDetailRecordRepository callRepository,
+        INotifier notifier)
     {
         this.callRepository = callRepository;
+        notifier = notifier;
     }
     public async Task AddCallRecords(List<string> records)
     {
@@ -34,9 +39,9 @@ public class CallDetailRecordService : ICallDetailRecordService
         return this.callRepository.RetriveCallById(id);
     }
 
-    public Task RetriveNumberMostExpensiveCalls(CallFilters filters)
+    public Task<List<CallDetailRecord>> RetriveNumberMostExpensiveCalls(CallFilters filters)
     {
-        return this.RetriveNumberMostExpensiveCalls(filters);
+        return this.callRepository.RetriveNumberMostExpensiveCalls(filters);
     }
 
     private List<CallDetailRecord> ParseData(List<string> records)
@@ -69,13 +74,14 @@ public class CallDetailRecordService : ICallDetailRecordService
                     Cost = Convert.ToDouble(parseRecord[5]),
                     Id = parseRecord[6],
                     Currency = (Currency)Enum.Parse(typeof(Currency), parseRecord[7]),
-                    TypeOfCall = (TypeOfCall)Enum.Parse(typeof(TypeOfCall), parseRecord[8]),
+                    TypeOfCall = parseRecord[8]!=null ? 
+                        (TypeOfCall)Enum.Parse(typeof(TypeOfCall), parseRecord[8]) :
+                        parseRecord[1].StartsWith("44") ? TypeOfCall.Domestic : TypeOfCall.International,
                 });
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                Console.WriteLine(record.ToString() + $"line: {list.Count + 1}");
+                this.notifier.Handle(new Notification($"Error parsing record {record} in line {list.Count+1} - {e}"));
             }
 
         }
