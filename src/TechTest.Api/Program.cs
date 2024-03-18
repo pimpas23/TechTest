@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TechTest.Api.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://www.linkedin.com/in/bruno-gon%C3%A7alves-b988a271/")
         },
     });
+    options.SchemaFilter<EnumSchemaFilter>();
 });
 
 var app = builder.Build();

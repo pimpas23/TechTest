@@ -2,6 +2,8 @@
 using TechTest.Business.Interfaces;
 using TechTest.Business.Models;
 using TechTest.Business.Models.ResponseModels;
+using TechTest.Business.Notifier;
+using TechTest.Business.Services;
 using TechTest.Data.Context;
 
 namespace TechTest.Data.Repository
@@ -10,9 +12,13 @@ namespace TechTest.Data.Repository
     {
         private readonly MyDbContext Db;
         private readonly DbSet<CallDetailRecord> DbSet;
+        private readonly INotifier notificator;
 
-        public CallDetailRecordRepository(MyDbContext db)
+        public CallDetailRecordRepository(
+            MyDbContext db,
+            INotifier notifier)
         {
+            this.notificator = notifier;
             Db = db;
             DbSet = db.Set<CallDetailRecord>();
         }
@@ -88,8 +94,16 @@ namespace TechTest.Data.Repository
 
         public async Task<int> SaveChanges()
         {
-            var changes = await Db.SaveChangesAsync();
-            return changes;
+            try
+            {
+                var changes = await Db.SaveChangesAsync();
+                return changes;
+            }
+            catch (Exception e)
+            {
+               notificator.Handle(new Notification($"Error saving changes {e}"));
+                throw;
+            }
         }
     }
 }

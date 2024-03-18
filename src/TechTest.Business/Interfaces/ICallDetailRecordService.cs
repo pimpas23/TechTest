@@ -16,7 +16,7 @@ namespace TechTest.Business.Interfaces
 
         Task<List<CallDetailRecord>> GetAllCallRecordsForCallerId(CallFilters filters);
 
-        Task RetriveNumberMostExpensiveCalls(CallFilters filters);
+        Task<List<CallDetailRecord>> RetriveNumberMostExpensiveCalls(CallFilters filters);
 
         Task<CallDetailRecord> RetriveCallById(string id);
     }
