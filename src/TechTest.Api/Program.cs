@@ -1,18 +1,19 @@
-using TechTest.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using TechTest.Api.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using TechTest.Api.Configuration;
+using TechTest.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
-    object value = options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    var x = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 builder.Services.ResolveDependencies();
 
@@ -35,7 +36,13 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://www.linkedin.com/in/bruno-gon%C3%A7alves-b988a271/")
         },
     });
-    options.SchemaFilter<EnumSchemaFilter>();
+
+    if(!builder.Environment.EnvironmentName.Equals("Testing"))
+    {
+        options.IncludeXmlComments("bin/TechTest.Api.xml");
+        options.IncludeXmlComments("../TechTest.Business/bin/TechTest.Business.xml");
+    }
+    //options.SchemaFilter<EnumSchemaFilter>();
 });
 
 var app = builder.Build();
@@ -43,7 +50,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    
+
 //}
 app.UseSwagger();
 app.UseSwaggerUI();

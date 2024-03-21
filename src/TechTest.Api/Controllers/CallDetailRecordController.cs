@@ -24,11 +24,6 @@ public class CallDetailRecordController : ControllerBase
         this.notifier = notifier;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="filter"></param>
-    /// <returns></returns>
     [HttpGet("GetTotalDurationOfCallsInTimeRange")]
     public async Task<ActionResult<CountCallsAndDuration>> GetTotalDurationOfCallsInTimeRange([FromQuery] InputModel filter)
     {
@@ -66,6 +61,7 @@ public class CallDetailRecordController : ControllerBase
         return NotFound();
     }
 
+    [ProducesResponseType(typeof(List<CallDetailRecord>), 200)]
     [HttpGet("GetAllCallsByCallerID")]
     public async Task<ActionResult<List<CallDetailRecord?>>> GetAllCallsByCallerID([FromQuery] CallFilters filter)
     {

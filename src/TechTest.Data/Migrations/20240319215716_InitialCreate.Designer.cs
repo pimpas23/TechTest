@@ -12,18 +12,17 @@ using TechTest.Data.Context;
 namespace TechTest.Data.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240313190710_InitialCreate")]
+    [Migration("20240319215716_InitialCreate")]
     partial class InitialCreate
     {
-        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.2")
+                .HasAnnotation("ProductVersion", "6.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
             modelBuilder.Entity("TechTest.Business.Models.CallDetailRecord", b =>
                 {

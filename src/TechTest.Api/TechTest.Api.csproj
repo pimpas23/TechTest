@@ -5,6 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<GenerateDocumentationFile>True</GenerateDocumentationFile>
+	<DocumentationFile>src\TechTest.Api\bin\TechTest.Api.XML</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TechTest.Data\TechTest.Data.csproj" />
+	  <InternalsVisibleTo Include="TechTest.Api.IntegrationTests" />
   </ItemGroup>
 
 </Project>

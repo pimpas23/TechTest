@@ -16,7 +16,7 @@ public class CallDetailRecordService : ICallDetailRecordService
         INotifier notifier)
     {
         this.callRepository = callRepository;
-        notifier = notifier;
+        this.notifier = notifier;
     }
     public async Task AddCallRecords(List<string> records)
     {

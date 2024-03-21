@@ -10,7 +10,7 @@ namespace TechTest.Data.Repository
 {
     public class CallDetailRecordRepository : ICallDetailRecordRepository
     {
-        private readonly MyDbContext Db;
+        private readonly DbContext Db;
         private readonly DbSet<CallDetailRecord> DbSet;
         private readonly INotifier notificator;
 
@@ -18,6 +18,7 @@ namespace TechTest.Data.Repository
             MyDbContext db,
             INotifier notifier)
         {
+
             this.notificator = notifier;
             Db = db;
             DbSet = db.Set<CallDetailRecord>();
@@ -101,7 +102,7 @@ namespace TechTest.Data.Repository
             }
             catch (Exception e)
             {
-               notificator.Handle(new Notification($"Error saving changes {e}"));
+                notificator.Handle(new Notification($"Error saving changes {e}"));
                 throw;
             }
         }
