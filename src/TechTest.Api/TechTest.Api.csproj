@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TechTest.Data\TechTest.Data.csproj" />
+	  <InternalsVisibleTo Include="TechTest.Api.IntegrationTests"/>
   </ItemGroup>
 
 </Project>

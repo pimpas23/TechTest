@@ -12,9 +12,12 @@ COPY ["TechTest.sln", "TechTest.sln"]
 COPY ["src/TechTest.Api/TechTest.Api.csproj", "src/TechTest.Api/"]
 COPY ["src/TechTest.Business/TechTest.Business.csproj", "src/TechTest.Business/"]
 COPY ["src/TechTest.Data/TechTest.Data.csproj", "src/TechTest.Data/"]
-COPY ["tests/TechTest.Api.Tests/TechTest.Api.Tests.csproj", "tests/TechTest.Api.Tests/"]
-COPY ["tests/TechTest.Business.Tests/TechTest.Business.Tests.csproj", "tests/TechTest.Business.Tests/"]
-COPY ["tests/TechTest.Data.Tests/TechTest.Data.Tests.csproj", "tests/TechTest.Data.Tests/"]
+
+COPY ["tests/UnitTests/TechTest.Api.Tests/TechTest.Api.Tests.csproj", "tests/UnitTests/TechTest.Api.Tests/"]
+COPY ["tests/UnitTests/TechTest.Business.Tests/TechTest.Business.Tests.csproj", "tests/UnitTests/TechTest.Business.Tests/"]
+COPY ["tests/UnitTests/TechTest.Data.Tests/TechTest.Data.Tests.csproj", "tests/UnitTests/TechTest.Data.Tests/"]
+
+COPY ["tests/IntegrationTests/TechTest.Api.IntegrationTests/TechTest.Api.IntegrationTests.csproj", "tests/IntegrationTests/TechTest.Api.IntegrationTests/"]
 
 # Restore NuGet packages and clear cache
 RUN dotnet restore TechTest.sln
@@ -36,11 +39,13 @@ WORKDIR /app
 
 # Unit tests
 From build AS unit-tests
-ENTRYPOINT dotnet test tests/TechTest.Api.Tests/TechTest.Api.Tests.csproj -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx" && \
-		   dotnet test tests/TechTest.Business.Tests/TechTest.Business.Tests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx" && \
-		   dotnet test tests/TechTest.Data.Tests/TechTest.Data.Tests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx"
+ENTRYPOINT dotnet test tests/UnitTests/TechTest.Api.Tests/TechTest.Api.Tests.csproj -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx" && \
+		   dotnet test tests/UnitTests/TechTest.Business.Tests/TechTest.Business.Tests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx" && \
+		   dotnet test tests/UnitTests/TechTest.Data.Tests/TechTest.Data.Tests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx"
 
-
+# IntegrationTests
+From build as integration-tests
+ENTRYPOINT dotnet test tests/IntegrationTests/TechTest.Api.IntegrationTests/TechTest.Api.IntegrationTests.csproj -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx"
 
 # Define the entry point for the container
 From build AS final

@@ -1,18 +1,18 @@
-using TechTest.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using TechTest.Api.Configuration;
-using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerGen;
+using TechTest.Api.Configuration;
+using TechTest.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
-    object value = options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
 
 builder.Services.ResolveDependencies();
 
@@ -43,7 +43,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{
-    
+
 //}
 app.UseSwagger();
 app.UseSwaggerUI();

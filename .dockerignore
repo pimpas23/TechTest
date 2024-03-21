@@ -1,0 +1,5 @@
+# Exclude directories
+.vs/
+
+# Exclude files with .vsidx extension
+*.vsidx

@@ -10,7 +10,7 @@ namespace TechTest.Data.Repository
 {
     public class CallDetailRecordRepository : ICallDetailRecordRepository
     {
-        private readonly MyDbContext Db;
+        private readonly DbContext Db;
         private readonly DbSet<CallDetailRecord> DbSet;
         private readonly INotifier notificator;
 
@@ -18,8 +18,10 @@ namespace TechTest.Data.Repository
             MyDbContext db,
             INotifier notifier)
         {
+           
             this.notificator = notifier;
             Db = db;
+            var x = this.IsEnvironmentTest();
             DbSet = db.Set<CallDetailRecord>();
         }
 
@@ -104,6 +106,11 @@ namespace TechTest.Data.Repository
                notificator.Handle(new Notification($"Error saving changes {e}"));
                 throw;
             }
+        }
+
+        private bool IsEnvironmentTest()
+        {
+            return Db.Database.ProviderName == "Microsoft.EntityFrameworkCore.InMemory";
         }
     }
 }

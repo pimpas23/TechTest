@@ -60,10 +60,10 @@ namespace TechTest.Api.Tests
             // Arrange
             var content = "441216000000,448000000000,16/08/2016,14:21:33,43,0,C5DA9724701EEBBA95CA2CC5617BA93E4,GBP,2";
             var bytes = Encoding.UTF8.GetBytes(content);
-            var nonCsvFile = new FormFile(new MemoryStream(bytes), 0, bytes.Length, "example.csv", "example.csv");
+            var csvFile = new FormFile(new MemoryStream(bytes), 0, bytes.Length, "example.csv", "example.csv");
 
             // Act
-            var result = controller.Upload(nonCsvFile).GetAwaiter().GetResult();
+            var result = controller.Upload(csvFile).GetAwaiter().GetResult();
 
             // Assert
             Assert.Single(service.Invocations);
