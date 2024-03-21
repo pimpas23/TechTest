@@ -18,7 +18,7 @@ namespace TechTest.Data.Repository
             MyDbContext db,
             INotifier notifier)
         {
-           
+
             this.notificator = notifier;
             Db = db;
             DbSet = db.Set<CallDetailRecord>();
@@ -102,7 +102,7 @@ namespace TechTest.Data.Repository
             }
             catch (Exception e)
             {
-               notificator.Handle(new Notification($"Error saving changes {e}"));
+                notificator.Handle(new Notification($"Error saving changes {e}"));
                 throw;
             }
         }

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechTest.Business.Models.Enums;
+﻿using TechTest.Business.Models.Enums;
 
-namespace TechTest.Business.Models
+namespace TechTest.Business.Models;
+
+public class InputModel
 {
-    public class InputModel
-    {
-        public DateTime StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
-        public TypeOfCall CallType { get; set; }
-    }
+    public TypeOfCall CallType { get; set; }
 }

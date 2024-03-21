@@ -22,13 +22,16 @@ dependencies: network
 unit-tests: network
 	@docker-compose -f docker-compose.yaml up --abort-on-container-exit unit-tests
 
-integration-tests: network
+integration-tests: create-db
 	@docker-compose -f docker-compose.yaml up --abort-on-container-exit integration-tests
 
 create-db: network
 	@docker-compose up -d create-db
+	@sh -c 'sleep 5'
 	@docker cp ./scripts/create_database_integration_tests.sql integration_db:/create_database_integration_tests.sql
 	@docker exec -it integration_db /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P TechTest112358.# -d master -i /create_database_integration_tests.sql
+	@sh -c 'sleep 2'
+
 
 clean:
 	@docker-compose -f docker-compose.yaml down

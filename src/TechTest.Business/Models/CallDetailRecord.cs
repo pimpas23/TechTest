@@ -27,7 +27,9 @@ public class CallDetailRecord
     public string Id { get; set; }
 
     public double Cost { get; set; }
-
+    /// <summary>
+    /// Type of call enum for the different types of calls that can be made 1-Domestic, 2-International
+    /// </summary>
     public TypeOfCall TypeOfCall { get; set; }
     /// <summary>
     /// 0-GBP, 1-USD, 2-EUR, 3-JPY

@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using System.Collections.Generic;
-using TechTest.Business.Interfaces;
+﻿using TechTest.Business.Interfaces;
 using TechTest.Business.Notifier;
 using TechTest.Business.Services;
 using TechTest.Data.Context;

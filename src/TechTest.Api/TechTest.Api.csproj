@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 	<GenerateDocumentationFile>True</GenerateDocumentationFile>
-	<DocumentationFile>src\TechTest.Business\bin\TechTest.Business.XML</DocumentationFile>
+	<DocumentationFile>src\TechTest.Api\bin\TechTest.Api.XML</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

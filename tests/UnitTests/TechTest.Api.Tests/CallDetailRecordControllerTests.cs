@@ -12,11 +12,10 @@ namespace TechTest.Api.Tests
 {
     public class CallDetailRecordControllerTests
     {
-        private readonly Mock<ICallDetailRecordService> service=new();
+        private readonly Mock<ICallDetailRecordService> service = new();
         private readonly Mock<IConfiguration> configuration = new();
         private readonly Mock<INotifier> notifier = new();
         private CallDetailRecordController controller;
-        private Fixture fixture= new();
 
         public CallDetailRecordControllerTests()
         {
@@ -70,7 +69,7 @@ namespace TechTest.Api.Tests
             Assert.IsType<OkObjectResult>(result);
             var badRequestResult = (OkObjectResult)result;
             Assert.Equal("File uploaded successfully", badRequestResult.Value);
-            
+
         }
-    }    
+    }
 }

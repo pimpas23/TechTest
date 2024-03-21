@@ -36,8 +36,12 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://www.linkedin.com/in/bruno-gon%C3%A7alves-b988a271/")
         },
     });
-    options.IncludeXmlComments("bin/TechTest.Api.xml");
-    options.IncludeXmlComments("../TechTest.Business/bin/TechTest.Business.xml");
+
+    if(!builder.Environment.EnvironmentName.Equals("Testing"))
+    {
+        options.IncludeXmlComments("bin/TechTest.Api.xml");
+        options.IncludeXmlComments("../TechTest.Business/bin/TechTest.Business.xml");
+    }
     //options.SchemaFilter<EnumSchemaFilter>();
 });
 
