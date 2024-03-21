@@ -11,6 +11,12 @@ namespace TechTest.Business.Models.Enums;
 /// </summary>
 public enum TypeOfCall
 {
+    /// <summary>
+    /// Represents a domestic call.
+    /// </summary>
     Domestic = 1,
+    /// <summary>
+    /// Represents an international call.
+    /// </summary>
     International = 2,
 }

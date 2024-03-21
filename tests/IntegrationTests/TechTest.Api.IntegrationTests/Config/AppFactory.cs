@@ -17,10 +17,10 @@ internal class AppFactory<Program> : WebApplicationFactory<Program> where Progra
 
     protected async override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Testing");
+        // builder.UseEnvironment("Testing");
         builder.ConfigureServices(services =>
         {
-            builder.UseEnvironment("Testing");
+            //builder.UseEnvironment("Testing");
             // Remove the existing DbContext registration
 
             // Build the service provider.

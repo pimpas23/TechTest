@@ -29,6 +29,8 @@ public class CallDetailRecord
     public double Cost { get; set; }
 
     public TypeOfCall TypeOfCall { get; set; }
-
+    /// <summary>
+    /// 0-GBP, 1-USD, 2-EUR, 3-JPY
+    /// </summary>
     public Currency Currency { get; set; }
 }

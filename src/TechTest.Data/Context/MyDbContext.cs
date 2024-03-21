@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using TechTest.Business.Models;
 
@@ -19,10 +14,6 @@ namespace TechTest.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-             
-            var connectionString = _configuration.GetConnectionString("DefaultConnection");
-            // "Server = (LocalDB)\\MSSQLLocalDB; Integrated Security = true;";
-            //// _configuration.GetConnectionString("DefaultConnection");
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(
@@ -31,7 +22,7 @@ namespace TechTest.Data.Context
                         maxRetryDelay: TimeSpan.FromSeconds(10),
                         errorNumbersToAdd: null));
             }
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

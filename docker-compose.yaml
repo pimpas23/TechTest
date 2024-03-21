@@ -21,7 +21,7 @@ services:
     hostname: techtest_sql_server_1
     restart: unless-stopped
     volumes:
-      - ./data:/var/opt/mssql/data   # Mount a volume to persist SQL Server data
+      - mssql-db-vol:/var/opt/mssql   # Mount a volume to persist SQL Server data
       
   unit-tests:
     container_name: techtest-unit-tests-unit-tests
@@ -45,15 +45,16 @@ services:
       ACCEPT_EULA: "Y"
       SA_PASSWORD: "TechTest112358.#"
     ports:
-      - 1433:1433
-    container_name: techtest_sql_server_1
-    hostname: techtest_sql_server_1
+      - 1434:1433
+    container_name: integration_db
+    hostname: integration_db
     restart: unless-stopped
-    volumes:
-      - ./data:/var/opt/mssql/data
       # Mount a volume to persist SQL Server data
 
 networks:
   default:
     external:
       name: techtest-network
+
+volumes:
+  mssql-db-vol:

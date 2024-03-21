@@ -14,7 +14,9 @@ namespace TechTest.Business.Models
         public DateTime? EndDate { get; set; }
 
         public string? CallerID { get; set; }
-
+        /// <summary>
+        /// 1 - Domestic, 2 - International
+        /// </summary>
         public TypeOfCall? CallType { get; set; }
 
         public int? NumberOfMostExpensiveCallsToRetrieve { get; set; }

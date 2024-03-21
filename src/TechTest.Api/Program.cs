@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<MyDbContext>(options =>
 {
+    var x = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
@@ -35,7 +36,9 @@ builder.Services.AddSwaggerGen(options =>
             Url = new Uri("https://www.linkedin.com/in/bruno-gon%C3%A7alves-b988a271/")
         },
     });
-    options.SchemaFilter<EnumSchemaFilter>();
+    options.IncludeXmlComments("bin/TechTest.Api.xml");
+    options.IncludeXmlComments("../TechTest.Business/bin/TechTest.Business.xml");
+    //options.SchemaFilter<EnumSchemaFilter>();
 });
 
 var app = builder.Build();

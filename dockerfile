@@ -45,7 +45,7 @@ ENTRYPOINT dotnet test tests/UnitTests/TechTest.Api.Tests/TechTest.Api.Tests.csp
 
 # IntegrationTests
 From build as integration-tests
-ENTRYPOINT dotnet test tests/IntegrationTests/TechTest.Api.IntegrationTests/TechTest.Api.IntegrationTests.csproj -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx"
+ENTRYPOINT dotnet test tests/IntegrationTests/TechTest.Api.IntegrationTests/TechTest.Api.IntegrationTests.csproj --no-build -c Release --results-directory /reports --logger "console;verbosity=detailed" --logger "trx"
 
 # Define the entry point for the container
 From build AS final

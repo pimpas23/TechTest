@@ -66,6 +66,12 @@ public class CallDetailRecordController : ControllerBase
         return NotFound();
     }
 
+    /// <summary>
+    /// Gets all calls for given Id, for the call type use: 1 - Domestic, 2 - International
+    /// </summary>
+    /// <param name="filter"> </param>
+    /// <returns></returns>
+    [ProducesResponseType(typeof(List<CallDetailRecord>), 200)]
     [HttpGet("GetAllCallsByCallerID")]
     public async Task<ActionResult<List<CallDetailRecord?>>> GetAllCallsByCallerID([FromQuery] CallFilters filter)
     {

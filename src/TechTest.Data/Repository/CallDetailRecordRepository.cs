@@ -21,7 +21,6 @@ namespace TechTest.Data.Repository
            
             this.notificator = notifier;
             Db = db;
-            var x = this.IsEnvironmentTest();
             DbSet = db.Set<CallDetailRecord>();
         }
 
@@ -106,11 +105,6 @@ namespace TechTest.Data.Repository
                notificator.Handle(new Notification($"Error saving changes {e}"));
                 throw;
             }
-        }
-
-        private bool IsEnvironmentTest()
-        {
-            return Db.Database.ProviderName == "Microsoft.EntityFrameworkCore.InMemory";
         }
     }
 }
